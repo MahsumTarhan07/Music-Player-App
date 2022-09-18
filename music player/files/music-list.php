@@ -13,9 +13,11 @@ include("header.php");
   <body>
 
   <?php
+  
+
        $userID =  $_SESSION["userID"];
 
-       $music_genre = $db->prepare("SELECT * FROM music_genre WHERE USER_İD=?");
+       $music_genre = $db->prepare("SELECT * FROM register_users INNER JOIN music_genre ON register_users.id=music_genre.USER_İD WHERE register_users.id=?");
        $music_genre->execute([
            $userID
        ]);    
@@ -23,14 +25,14 @@ include("header.php");
   ?>
 
   <table class="container mt-5 table table-hover table-dark">
-  <thead>
+  <thead class="bg-warning">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Music Name</th>
       <th scope="col">Music File</th>
       <th scope="col">Music Genre</th>
-      <th class="text-primary" scope="col"><i class="fa-regular fa-pen-to-square"></i></th>
-      <th class="text-danger" scope="col"><i class="fa-solid fa-trash-can-arrow-up"></i></th>
+      <th class="text-info"> <button type="button" class="btn btn-light"><i class="fa-regular fa-pen-to-square"></i></button> </a></th>
+      <th> <button type="button" class="btn btn-dark"><i class="fa-solid fa-trash-can-arrow-up text-danger"></i></button> </a></th>
     </tr>
   </thead>
   <tbody>
@@ -38,18 +40,26 @@ include("header.php");
   <?php
      foreach ($music_genre as $row) {
    ?>
+   
     <tr>
       <th scope="row"><?php  echo $row['ID'] ?></th>
       <th scope="row"><?php  echo $row['MUSİC_NAME'] ?></th>
       <th scope="row"><?php  echo $row['MUSİC_FİLE'] ?></th>
       <th scope="row"><?php  echo $row['MUSİC_GENRE'] ?></th>
-      <th class="text-primary" scope="col"><i class="fa-regular fa-pen-to-square"></i></th>
-      <th class="text-danger" scope="col"><i class="fa-solid fa-trash-can-arrow-up"></i></th>
+      <th class="text-info"> <button type="button"   class="btn btn-light"><a href="process=update=id&<?php echo $row['ID'] ;?>"><i class="fa-regular fa-pen-to-square"></i></a></button> </a></th>
+      <th> <button type="button" name="deleteBtn" class="btn btn-primary"><a href="music-delete.php?musicid=<?php echo $row['ID'];?>"><i class="fa-solid fa-trash-can-arrow-up text-danger"></i></a></button> </a></th>
     </tr>
+
+    <?php
+        if(isset($_GET["process?dez"])){
+          echo "var";
+        }
+    ?>
+    
     
     <?php
-            }
-        ?>
+          }
+    ?>
   </tbody>
 </table>
 

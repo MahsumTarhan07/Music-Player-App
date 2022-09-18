@@ -27,7 +27,7 @@ include("header.php");
     $row = $profileGo->fetch(PDO::FETCH_ASSOC);
 
 
-    $music_genre = $db->prepare("SELECT * FROM music_genre WHERE USER_İD=?");
+    $music_genre = $db->prepare("SELECT register_users.ID, music_genre.USER_İD FROM register_users INNER JOIN music_genre WHERE register_users.ID=?");
     $music_genre->execute([
         $userID
     ]);    
@@ -66,7 +66,7 @@ include("header.php");
 
           <div class="music-total">
             <p>Toplam Muziklerim<br>
-            <p class="total"><?php echo $music_number['ID'] + 1;?></p>
+            <p class="total"><?php echo $music_number['ID'];?></p>
             </p>
           </div>
         </div>

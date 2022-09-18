@@ -21,13 +21,13 @@ function StudentTrue(){
 
     if(isset($_POST["register_btn"])){
 
-        $name = ServerSecurity($_POST["name"] . mt_rand());
-        $lastname = ServerSecurity($_POST["lastname"]);
-        $phone = ServerSecurity($_POST["phone"]);
-        $email = ServerSecurity($_POST["email"]);
-        $password = ServerSecurity(md5($_POST["password"]));
-        $password_repeat = ServerSecurity(md5($_POST["repeat_password"]));
-        $cryptopassword = ServerSecurity(hash('sha256', $password));
+        $name = $_POST["name"] . mt_rand();
+        $lastname = $_POST["lastname"];
+        $phone = $_POST["phone"];
+        $email = $_POST["email"];
+        $password = md5($_POST["password"]);
+        $password_repeat = md5($_POST["repeat_password"]);
+        $cryptopassword = hash('sha256', $password);
 
         if(empty($name) || empty($lastname) || empty($phone) || empty($email) || empty($password) || empty($password_repeat)){
             echo "Lütfen Bilgilerniz Eksik Girmeyiniz";

@@ -11,10 +11,12 @@ include("header.php");
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src=".././js/music_add.js"></script>
+
 </head>
 
 <body>
-  <form  action="music_insert_add.php" method="post" class="container mt-4">
+  <form action="music_insert_add.php" name="musicForm" method="post" class="container mt-4">
     <div class="form-group">
       <label for="music-name">Music Name</label>
       <input type="text" class="form-control" name="musicNameAdd" id="musicname" aria-describedby="" placeholder="Music Name">
@@ -37,10 +39,9 @@ include("header.php");
       <option value="classic-music">CLASSİC_MUSİC</option>
       <option value="Electronic-music">ELECTRONİC_MUSİC</option>
     </select>
-    <button type="submit" class="btn btn-primary mt-5 col-2" name="musicAddBtn">Music Add</button>
+    <button type="submit" name="musicAddBtn" class="btn btn-primary mt-5" onclick="musicAddFormControl()">Music Add</button>
     
   </form>
-
 
 
 

@@ -4,35 +4,55 @@ ob_start();
 include('../db/database.php');
 
 
+function musicAdd(){
+    header('Refresh:2;music_add.php'); 
+    die();
+}
+
+function musicInsertError(){
+    header('Refresh:2;music_add.php'); 
+    die();
+}
+
 if(isset($_POST["musicAddBtn"])){
 
     $user_id = $_SESSION["userID"];
-
-    echo $user_id;
-
-    $music_name = $_POST["musicNameAdd"];
-    $music_file_add = $_POST["musicFile"];
-    $music_genre = $_POST["musicGenres"];
-
-    echo $music_name;
-
-    if($password == $password_repeat){
-        $music_insert = $db->prepare("INSERT INTO music_genre SET MUSİC_NAME = ?, MUSİC_FİLE = ?,  MUSİC_GENRE = ? WHERE USER_İD=?");
-        $insert = $music_insert->execute(
-            [
-                $music_name,
-                $music_file_add,
-                $music_genre,
-                $user_id
-            ] 
-        );
-        $music_number = $music_insert->rowCount();
-        if($music_number==true){
-            echo "Şarkınız Başarılı Bir Sekilde Kayıt Edildi <br>";
+    $name = $_POST["musicNameAdd"];
+    $file = $_POST["musicFile"];
+    $genres = $_POST["musicGenres"];
+    
+    try {
+        if(empty($name) || empty($file) || empty($genres)){
+            echo "<b style='red: green;'>Do Not Enter Missing Information</b>";
+            musicInsertError();
         }else{
-            echo "Bilinmeyen Bir Nedenden Dolayı Eklenemedi";
+        $user_register = $db->prepare("INSERT INTO music_genre SET MUSİC_NAME = ?, MUSİC_FİLE = ?, MUSİC_GENRE = ?, USER_İD = ?");
+        if(true){
+            $insert = $user_register->execute(
+                [
+                    $name,
+                    $file,
+                    $genres,
+                    $user_id
+                ] 
+            );
+            
+    
+            if($insert == 1){
+                echo " <b style='color: green;'>Music Added</b>";  
+                musicAdd();                      
+            }else{
+                echo "<b style='red: green;'>Do Not Enter Missing Information</b>";
+                musicInsertError();
+            }
         }
-    } 
+      }   
+
+    } catch (PDOException $e) {
+        echo "Error";
+        die();
+  }
+  
 }
 
 ?>
