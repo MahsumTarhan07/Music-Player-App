@@ -37,47 +37,52 @@ if(isset($_SESSION["userName"]) || isset($_SESSION["phone"]))
   ?>
 
 
-<?php
+  <?php
+  $user_id = $_SESSION["userID"];
 
-$query = $db->query("SELECT register_users.ID, music_genre.MUSİC_NAME, music_genre.MUSİC_FİLE,music_genre.MUSİC_GENRE FROM register_users INNER JOIN music_genre WHERE register_users.ID =music_genre.USER_İD")->rowCount();
+  $slidersor=$db->prepare("SELECT * FROM music_genre where USER_İD = ?");
+  $slidersor->execute(
+    [
+      $user_id
+    ]
+  );
+  
+?>
+<table class="container mt-4 table table-stripedtable table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">MUSİC_NAME</th>
+      <th scope="col">MUSİC_FİLE</th>
+      <th scope="col">MUSİC_GENRE</th>
+      <th scope="col">Play</th>
+      <th scope="col">Pause</th>
 
+    </tr>
+  </thead>
+  
+  <tbody>
+  <?php 
+    while($row = $slidersor->fetch(PDO::FETCH_ASSOC)) {
 
+  
+?>
+    <tr>
+    <th scope="row"><?php  echo $row["ID"] ?></th>
+      <th scope="row"><?php  echo $row["MUSİC_NAME"] ?></th>
+      <th scope="row"><?php  echo $row["MUSİC_FİLE"] ?></th>
+      <th scope="row"><?php  echo $row["MUSİC_GENRE"]?></th>
+      <th scope="row"><i class="fa-regular fa-circle-play"></i></th>
+      <th scope="row"><i class="fa-solid fa-pause"></i></th>
+
+    </tr>
+    <?php
+  }
 ?>
 
-  <div class="container-fluid">
-    <div class="px-lg-5">
+  </tbody>
+  </table>
 
-      <!-- For demo purpose -->
-      <div class="row py-5">
-        <div class="col-lg-12 mx-auto">
-          <div class="text-white p-5 shadow-sm rounded banner">
-            <h1 class="display-4">Bootstrap 4 photo gallery</h1>
-            <p class="lead">Bootstrap photogallery snippet.</p>
-            <p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-reset">
-                Bootstrapious</a>, Images by <a href="https://unsplash.com" class="text-reset">Unsplash</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- End -->
-
-      <div class="row">
-        <!-- Gallery item -->
-        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-          <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg"
-              alt="" class="img-fluid card-img-top">
-            <div class="p-4">
-              <h5> <a href="#" class="text-dark">
-                  <?php echo $row[''] ?>
-                </a></h5>
-              <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-              <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
-              </div>
-            </div>
-          </div>
-        </div>
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

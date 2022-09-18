@@ -20,6 +20,8 @@ if(isset($_POST["musicAddBtn"])){
     $name = $_POST["musicNameAdd"];
     $file = $_POST["musicFile"];
     $genres = $_POST["musicGenres"];
+
+    echo $name;
     
     try {
         if(empty($name) || empty($file) || empty($genres)){
